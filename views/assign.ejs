@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Asset Assignment & Return</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; }
+    .container { display: flex; gap: 40px; margin-top: 20px; }
+    .box { border: 1px solid #ccc; padding: 20px; width: 420px; border-radius: 5px; }
+    select, button { width: 100%; padding: 10px; margin-top: 10px; margin-bottom: 15px; }
+    button { background: #007bff; color: white; border: none; cursor: pointer; border-radius: 3px; font-weight: bold; }
+    button.btn-return { background: #28a745; }
+  </style>
+</head>
+<body>
+  <h1>Asset Assignment & Return</h1>
+  <a href="/">← Back to Assets Directory</a>
+
+  <div class="container">
+    <!-- Assign Form -->
+    <div class="box">
+      <h2>Assign Asset</h2>
+      <% if (availableAssets.length === 0 || staff.length === 0) { %>
+        <p>Ensure you have available assets and registered staff members.</p>
+      <% } else { %>
+        <form action="/assign" method="POST">
+          <label>Select Available Asset:</label>
+          <select name="asset_id" required>
+            <option value="">-- Select Asset --</option>
+            <% availableAssets.forEach(a => { %>
+              <option value="<%= a.id %>"><%= a.asset_tag %> - <%= a.name %></option>
+            <% }); %>
+          </select>
+
+          <label>Select Staff Member:</label>
+          <select name="staff_id" required>
+            <option value="">-- Select Staff --</option>
+            <% staff.forEach(s => { %>
+              <option value="<%= s.id %>"><%= s.name %> (<%= s.department %>)</option>
+            <% }); %>
+          </select>
+
+          <button type="submit">Assign Asset</button>
+        </form>
+      <% } %>
+    </div>
+
+    <!-- Return Form -->
+    <div class="box">
+      <h2>Return Asset</h2>
+      <% if (assignedAssets.length === 0) { %>
+        <p>No assets are currently assigned.</p>
+      <% } else { %>
+        <form action="/return" method="POST">
+          <label>Select Assigned Asset to Return:</label>
+          <select name="asset_id" required>
+            <option value="">-- Select Asset --</option>
+            <% assignedAssets.forEach(a => { %>
+              <option value="<%= a.id %>"><%= a.asset_tag %> - <%= a.name %> (Held by: <%= a.holder_name %>)</option>
+            <% }); %>
+          </select>
+
+          <button type="submit" class="btn-return">Mark as Returned</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

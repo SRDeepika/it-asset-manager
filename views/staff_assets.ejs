@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Assets Held by <%= staff.name %></title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    th { background: #f4f4f4; }
+  </style>
+</head>
+<body>
+  <h1>Assets Currently Held by <%= staff.name %></h1>
+  <p><strong>Email:</strong> <%= staff.email %> | <strong>Department:</strong> <%= staff.department %></p>
+  <a href="/staff">← Back to Staff Directory</a>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Asset Name</th>
+        <th>Tag</th>
+        <th>Type</th>
+        <th>Serial Number</th>
+        <th>Assigned Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (assets.length === 0) { %>
+        <tr><td colspan="5">No assets currently held.</td></tr>
+      <% } else { %>
+        <% assets.forEach(a => { %>
+          <tr>
+            <td><%= a.name %></td>
+            <td><%= a.asset_tag %></td>
+            <td><%= a.type %></td>
+            <td><%= a.serial_number %></td>
+            <td><%= a.assigned_at %></td>
+          </tr>
+        <% }); %>
+      <% } %>
+    </tbody>
+  </table>
+</body>
+</html>

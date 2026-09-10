@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Asset History - <%= asset.name %></title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    th { background: #f4f4f4; }
+  </style>
+</head>
+<body>
+  <h1>Assignment History for <%= asset.name %> (<%= asset.asset_tag %>)</h1>
+  <p><strong>Type:</strong> <%= asset.type %> | <strong>Serial Number:</strong> <%= asset.serial_number %></p>
+  <a href="/">← Back to Inventory</a>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Staff Name</th>
+        <th>Staff Email</th>
+        <th>Assigned Date</th>
+        <th>Returned Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (history.length === 0) { %>
+        <tr><td colspan="4">No assignment history recorded for this asset.</td></tr>
+      <% } else { %>
+        <% history.forEach(h => { %>
+          <tr>
+            <td><%= h.staff_name %></td>
+            <td><%= h.email %></td>
+            <td><%= h.assigned_at %></td>
+            <td><%= h.returned_at ? h.returned_at : 'Currently Active' %></td>
+          </tr>
+        <% }); %>
+      <% } %>
+    </tbody>
+  </table>
+</body>
+</html>

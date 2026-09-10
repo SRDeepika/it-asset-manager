@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><title>Edit Asset</title></head>
+<body style="font-family: Arial; margin: 30px;">
+  <h1>Edit Asset: <%= asset.asset_tag %></h1>
+  <a href="/">Back to Assets</a><br><br>
+  <form action="/assets/edit/<%= asset.id %>" method="POST" style="max-width: 400px;">
+    <p><label>Asset Name:<br><input type="text" name="name" value="<%= asset.name %>" required style="width:100%; padding:8px;"></label></p>
+    <p><label>Type:<br>
+      <select name="type" style="width:100%; padding:8px;">
+        <option value="laptop" <%= asset.type === 'laptop' ? 'selected' : '' %>>Laptop</option>
+        <option value="monitor" <%= asset.type === 'monitor' ? 'selected' : '' %>>Monitor</option>
+        <option value="phone" <%= asset.type === 'phone' ? 'selected' : '' %>>Phone</option>
+        <option value="other" <%= asset.type === 'other' ? 'selected' : '' %>>Other</option>
+      </select>
+    </label></p>
+    <p><label>Asset Tag:<br><input type="text" name="asset_tag" value="<%= asset.asset_tag %>" required style="width:100%; padding:8px;"></label></p>
+    <p><label>Serial Number:<br><input type="text" name="serial_number" value="<%= asset.serial_number %>" required style="width:100%; padding:8px;"></label></p>
+    <p><label>Status:<br>
+      <select name="status" style="width:100%; padding:8px;">
+        <option value="available" <%= asset.status === 'available' ? 'selected' : '' %>>Available</option>
+        <option value="assigned" <%= asset.status === 'assigned' ? 'selected' : '' %>>Assigned</option>
+        <option value="under repair" <%= asset.status === 'under repair' ? 'selected' : '' %>>Under Repair</option>
+      </select>
+    </label></p>
+    <button type="submit" style="padding:10px 20px; background:#28a745; color:white; border:none;">Update Asset</button>
+  </form>
+</body>
+</html>
